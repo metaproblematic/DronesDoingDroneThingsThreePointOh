@@ -1,0 +1,45 @@
+{
+  "name": "drones_doing_drone_things_three_point_oh",
+  "version": "3.0.0",
+  "description": "A REST based interface to control multiple Parrot™ AR Drone 2.0.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ennuuos/DronesDoingDroneThingsThreePointOh.git"
+  },
+  "keywords": [
+    "drones",
+    "parrot",
+    "ar-drone"
+  ],
+  "contributors": {
+        "ennuuos" : {
+            "name" : "Travis Valenti",
+            "email" : "ennuuos@gmail.com"
+        },
+        "thewrongjames" : {
+            "name" : "James Wright"
+        },
+        "aedus" : {
+            "name" : "Tom Williams"
+        }
+
+    },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ennuuos/DronesDoingDroneThingsThreePointOh/issues"
+  },
+  "homepage": "https://github.com/ennuuos/DronesDoingDroneThingsThreePointOh#readme",
+  "dependencies": {
+    "ar-drone": "^0.3.3",
+    "express": "^4.16.2",
+    "ping": "^0.2.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.0"
+  }
+}
