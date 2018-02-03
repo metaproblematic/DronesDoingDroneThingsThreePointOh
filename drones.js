@@ -5,7 +5,9 @@
  * @requires ar-drone {@link https://www.npmjs.com/package/ar-drone}
  */
 
-let ar_module = require('ar-drone');
+const ar_module = require('ar-drone');
+const ping = require('ping');
+
 const config = require('./config.json');
 
 module.exports = new Drones;
@@ -48,9 +50,24 @@ Drones.prototype.allConfirmed = function() {
  */
 Drones.prototype._add = function(id) {
     if(this._containsId(id)) return this.getDrone(id);
-    let drone = {}; //TODO: setup drone here
+    let drone = ar_module.createClient({
+        ip : this._ipTemplate(id) // e.g. 192.168.1.101
+    });
     this._all.push(drone);
+    drone.resume(); // Let's hope this fixes an issue with drones not responding on second connect
+    drone.on('navdata', data => {drone.navdata = data; console.log(data)});
+    drone.animateLeds('blinkOrange', 5, 1); // This animation lets us know the drone has connected
+    console.log(`Drone ${id} connected`);
     return drone;
+}
+
+/**
+ * @todo Write the documentation.
+ * @todo Test this function.
+ */
+Drones.prototype._remove = function(id) {
+    if(!this._containsId(id)) return false;
+    delete this.getDrone(id);
 }
 
 /**
@@ -77,4 +94,36 @@ Drones.prototype.getDrone = function(id) {
         .map(drone => drone.id)
         .filter(_id => _id === id)
         [0];
+}
+
+/**
+ * @todo Write the documentation.
+ * @todo Test this function.
+ */
+Drones.prototype._ipTemplate = function(id) {
+    return `${config.network.drone_ip_stub}${id}`;
+}
+
+/**
+ * @todo Write the documentation.
+ * @todo Test this function.
+ */
+Drones.prototype._pingAll = function() {
+    config.network.drone_id_list.forEach(id => this._ping(id));
+}
+
+ /**
+  * @todo Write the documentation.
+  * @todo Test this function.
+  */
+Drones.prototype._ping = function(id) {
+    ping.sys.probe(
+        this._ipTemplate(id),
+        success => {
+            if(success) create(id);
+            if(!success) remove(id);
+            (success ? this._add : this._remove)(id)
+        },
+        {'timeout': 1}
+    );
 }
