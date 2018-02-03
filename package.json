@@ -4,6 +4,7 @@
   "description": "A REST based interface to control multiple Parrot™ AR Drone 2.0.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha --reporter spec"
   },
   "repository": {
