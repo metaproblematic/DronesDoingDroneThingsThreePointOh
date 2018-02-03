@@ -6,6 +6,7 @@
  */
 
 let ar_module = require('ar-drone');
+const config = require('./config.json');
 
 module.exports = new Drones;
 
