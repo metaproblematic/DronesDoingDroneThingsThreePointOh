@@ -1,4 +1,4 @@
-/* global describe it */
+/* eslint-env mocha */
 var Drones = require('../drones')
 var expect = require('chai').expect
 
