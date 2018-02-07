@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha --reporter spec --exit"
+    "test": "standard && mocha --reporter spec --exit"
   },
   "repository": {
     "type": "git",
@@ -17,18 +17,17 @@
     "ar-drone"
   ],
   "contributors": {
-        "ennuuos" : {
-            "name" : "Travis Valenti",
-            "email" : "ennuuos@gmail.com"
-        },
-        "thewrongjames" : {
-            "name" : "James Wright"
-        },
-        "aedus" : {
-            "name" : "Tom Williams"
-        }
-
+    "ennuuos": {
+      "name": "Travis Valenti",
+      "email": "ennuuos@gmail.com"
     },
+    "thewrongjames": {
+      "name": "James Wright"
+    },
+    "aedus": {
+      "name": "Tom Williams"
+    }
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ennuuos/DronesDoingDroneThingsThreePointOh/issues"
@@ -41,6 +40,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^5.0.0"
+    "mocha": "^5.0.0",
+    "standard": "^10.0.3"
   }
 }
