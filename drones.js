@@ -13,16 +13,16 @@ class Drones {
    * @param {Object} options - Set of configuration options. (See parseOptions)
    */
   constructor (options) {
-    this._all = []
-    this._options = options || {}
+    this.droneList = []
+    this.options = options || {}
   }
 
   /**
    * Returns an array of all drone objects, irregardless of if they are confirmed.
    * @returns {Drone[]} Array containing all drone objects.
    */
-  all () {
-    return this._all
+  get all () {
+    return this.droneList
   }
 
   /**
@@ -31,7 +31,7 @@ class Drones {
    * @todo Test this function
    */
   allConfirmed () {
-    let allConfirmed = this._all
+    let allConfirmed = this.droneList
     // TODO: define confirmed
     return allConfirmed
   }
@@ -42,12 +42,12 @@ class Drones {
    * @returns {Drone} Newly created client object from ar-drone module or pre-existing object with same id.
    * @todo Test this function
    */
-  _add (id) {
-    if (this._containsId(id)) return this.getDrone(id)
+  add (id) {
+    if (this.containsId(id)) return this.getDrone(id)
     let drone = arModule.createClient({
-      ip: this._ipTemplate(id) // e.g. 192.168.1.101
+      ip: this.ipTemplate(id) // e.g. 192.168.1.101
     })
-    this._all.push(drone)
+    this.droneList.push(drone)
     drone.id = id
     drone.resume() // Let's hope this fixes an issue with drones not responding on second connect
     drone.on('navdata', data => {
@@ -55,7 +55,7 @@ class Drones {
       console.log(data)
     })
     drone.animateLeds('blinkOrange', 5, 1) // This animation lets us know the drone has connected
-    if (this._options.log) console.log(`Drone ${id} connected`)
+    if (this.options.log) console.log(`Drone ${id} connected`)
     return drone
   }
 
@@ -63,8 +63,8 @@ class Drones {
    * @todo Write the documentation.
    * @todo Test this function.
    */
-  _remove (id) {
-    if (!this._containsId(id)) return false
+  remove (id) {
+    if (!this.containsId(id)) return false
     delete this.getDrone(id)
   }
 
@@ -74,8 +74,8 @@ class Drones {
    * @todo Write the documentation.
    * @todo Test this function.
    */
-  _containsId (id) {
-    return this._all.some(drone => drone.id === id)
+  containsId (id) {
+    return this.droneList.some(drone => drone.id === id)
   }
 
   /**
@@ -94,27 +94,27 @@ class Drones {
    * @todo Write the documentation.
    * @todo Test this function.
    */
-  _ipTemplate (id) {
-    return `${config.network.drone_ip_stub}${id}`
+  ipTemplate (id) {
+    return `${config.network.droneIpStub}${id}`
   }
 
   /**
    * @todo Write the documentation.
    * @todo Test this function.
    */
-  _pingAll () {
-    config.network.drone_id_list.forEach(id => this._ping(id))
+  pingAll () {
+    config.network.droneIdList.forEach(id => this.ping(id))
   }
 
    /**
     * @todo Write the documentation.
     * @todo Test this function.
     */
-  _ping (id) {
+  ping (id) {
     ping.sys.probe(
-      this._ipTemplate(id),
+      this.ipTemplate(id),
       success => {
-        (success ? this._add : this._remove)(id)
+        (success ? this.add : this.remove)(id)
       },
       {'timeout': 1}
     )
