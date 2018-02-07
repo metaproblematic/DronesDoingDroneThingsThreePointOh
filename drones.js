@@ -86,7 +86,7 @@ class Drones {
    */
   getDrone (id) {
     return this
-      .all()
+      .all
       .find(drone => drone.id === id)
   }
 
@@ -120,8 +120,13 @@ class Drones {
     )
   }
 
-  statuses () {
-    return this.all().map(drone => this.status(drone))
+  /**
+   * Evaluate to a list of all drone statuses
+   * @todo Write the documentation.
+   * @todo Test this function.
+   */
+  get statuses () {
+    return this.all.map(drone => this.status(drone))
   }
 
   status (drone) {
