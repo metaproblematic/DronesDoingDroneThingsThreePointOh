@@ -49,6 +49,7 @@ class Drones {
     })
     this.droneList.push(drone)
     drone.id = id
+    drone.ip = this.ipTemplate(id)
     drone.resume() // Let's hope this fixes an issue with drones not responding on second connect
     drone.on('navdata', data => {
       drone.navdata = data
@@ -106,10 +107,10 @@ class Drones {
     config.network.droneIdList.forEach(id => this.ping(id))
   }
 
-   /**
-    * @todo Write the documentation.
-    * @todo Test this function.
-    */
+  /**
+  * @todo Write the documentation.
+  * @todo Test this function.
+  */
   ping (id) {
     ping.sys.probe(
       this.ipTemplate(id),
@@ -129,11 +130,38 @@ class Drones {
     return this.all.map(drone => this.status(drone))
   }
 
-  status (drone) {
+  /**
+   * Return the status of drone with given id
+   * @todo Write the documentation.
+   * @todo Test this function.
+   */
+  status (id) {
+    let drone = this.all.find(drone => drone.id === id)
     return {
       id: drone.id,
+      ip: drone.ip,
       battery: drone.battery
     }
+  }
+
+  /**
+   * Bind for drone manipulation to express server
+   * @todo Write the documentation.
+   * @todo Test this function.
+   */
+  bindServerRoutes (server) {
+    server.get('/drones', (req, res) => {
+      res.send(this.statuses)
+    })
+    server.get('/drones/:id', (req, res) => {
+      let id = req.params['id']
+      res.send(this.status(id))
+    })
+    server.post('/drones/:id', (req, res) => {
+      let id = req.params['id']
+      this.add(id)
+      res.send(id)
+    })
   }
 }
 
