@@ -4,17 +4,17 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 DronesDoingDroneThings is a project which aims to provide an interface between
-node.js, Parrot AR Drones and the user. The goal is to create a server which can
+node.js, Parrot AR Drones, and the user. The goal is to create a server which can
 serve things such as controls, scoreboards, debug tools and more.
 
 ## Under Development
 
-This project is still in early development, don't expect it to do anything just quite yet.
+This project is still in early development; don't expect it to do anything just quite yet.
 
 ## Getting Started
 
 These are the instructions for setting up DronesDoingDroneThings on Linux.
-Information on how to setup on Windows and MacOS is unavailable at this time.
+Information on how to setup on Windows and MacOS is not available at this time.
 
 ### NodeJS and NPM
 
@@ -55,7 +55,7 @@ in the root folder.
 
 ## Running tests
 
-To running tests on this project is easy as pie! All you have to do is run
+Running tests on this project is easy as pie! All you have to do is run
 ```
 npm tests
 ```
@@ -71,7 +71,7 @@ The tests include [Mocha](https://mochajs.org) unit tests as well as
 
 ## License
 
-This code is licenced under the [MIT Licence](https://opensource.org/licenses/MIT)
+This code is licensed under the [MIT License](https://opensource.org/licenses/MIT)
 
 ## Acknowledgments
 
